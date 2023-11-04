@@ -1,44 +1,44 @@
 def encode_text(str1, k):
     temp = ''
-    for j in str1:
-        if j in 'abcdefghijklmnopqrstuvwxyz':
-            temp+=chr((ord(j)-ord('a')+k)%26+ord('a'))
-        elif j in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-            temp+=chr((ord(j)-ord('A')+k)%26+ord('A'))
+    for b in str1:
+        if b in 'abcdefghijklmnopqrstuvwxyz':
+            temp+=chr((ord(b)-ord('a')+k)%26+ord('a'))
+        elif b in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            temp+=chr((ord(b)-ord('A')+k)%26+ord('A'))
         else:
-            temp+=j
+            temp+=b
     return temp
 def decode_text(str1, k):
     temp = ''
-    for j in str1:
-        if j in 'abcdefghijklmnopqrstuvwxyz':
-            temp+=chr((ord(j)-ord('a')-k)%26+ord('a'))
-        elif j in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-            temp+=chr((ord(j)-ord('A')-k)%26+ord('A'))
+    for b in str1:
+        if b in 'abcdefghijklmnopqrstuvwxyz':
+            temp+=chr((ord(b)-ord('a')-k)%26+ord('a'))
+        elif b in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            temp+=chr((ord(b)-ord('A')-k)%26+ord('A'))
         else:
-            temp+=j
+            temp+=b
     return temp
 def brutforce(str1):
     arr = []
-    for i in range(0,26):
+    for a in range(0,26):
         temp=''
-        print(str(i)+": ", end = '')
-        for j in str1:
-            if j in 'abcdefghijklmnopqrstuvwxyz':
-                temp+=chr((ord(j)-ord('a')-i)%26+ord('a'))
-            elif j in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-                temp+=chr((ord(j)-ord('A')-i)%26+ord('A'))
+        print(str(a)+": ", end = '')
+        for b in str1:
+            if b in 'abcdefghijklmnopqrstuvwxyz':
+                temp+=chr((ord(b)-ord('a')-a)%26+ord('a'))
+            elif b in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+                temp+=chr((ord(b)-ord('A')-a)%26+ord('A'))
             else:
-                temp+=j
+                temp+=b
         print(temp)
         arr.append(temp.count('e')+temp.count('E'))
-    j = 0
+    b = 0
     m1 = arr[0]
-    for i in range(1,len(arr)):
-        if m1 < arr[i]:
-            j = i
-            m1 = arr[i]
-    return j
+    for a in range(1,len(arr)):
+        if m1 < arr[a]:
+            b = a
+            m1 = arr[a]
+    return b
 
 text = input('Введите текст на английском:')
 encode = encode_text(text, 8)
