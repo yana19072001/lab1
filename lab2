@@ -1,27 +1,33 @@
-def func(str1,str2):
-    array = []
-    for i in str2:
-        array.append(ord(i)- ord('A'))
-    res = ''
-    for i in range(len(str1)):
-        res += chr((ord(str1[i])-ord("A")+array[i%len(array)])%26+ord('A'))
-    return res
-def defunc(stru,strk):
-    array = []
-    for i in strk:
-        array.append(ord(i) - ord('A'))
-    array2 = []
-    for i in stru:
-        array2.append(ord(i) - ord('A'))
-    str1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def encr_message(plain_text, key):
+    key_arr = [ord(char) - ord('A') for char in key]
+    encr_text = ''
+  
+    for i, char in enumerate(plain_text):
+        key_ind = i % len(key_arr)
+        encr_char = chr((ord(char) - ord('A') + key_arr[key_ind]) % 26 + ord('A'))
+        encr_text += encr_char
     
-    res = ''
-    for i in range(len(stru)):
-        k = chr(array[i%len(array)]+ord('A'))
-        str2 =  str1[str1.find(k):]+str1[:str1.find(k)]
-        res += chr( str2.find(stru[i])+ord('A') )
-    return res
-t = input("Введите фразу\n")
-f = input("Введите кодовую фразу\n")
-print("Ваша фраза: ", func(t.upper(), f.upper()))
-print("Изначальная фраза: ",defunc(func(t.upper(), f.upper()),f.upper()))
+    return encr_text
+
+def decrypt_message(cipher_text, key):
+    key_arr = [ord(char) - ord('A') for char in key]
+    decrypt_text = ''
+    alphavit = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    for i, char in enumerate(cipher_text):
+        key_ind = i % len(key_arr)
+        shift = key_arr[key_ind]
+        shifted_alphavit = alphavit[shift:] + alphavit[:shift]
+        decrypt_char = chr(shifted_alphavit.find(char) + ord('A'))
+        decrypt_text += decrypt_char
+    
+    return decrypt_text
+
+user_input = input("Введите фразу: ").upper()
+key_input = input("Введите кодовую фразу: ").upper()
+
+encr_message = encr_message(user_input, key_input)
+print("Зашифрованная фраза: ", encr_message)
+
+decrypt_message = decrypt_message(encr_message, key_input)
+print("Расшифрованная фраза: ", decrypt_message)
