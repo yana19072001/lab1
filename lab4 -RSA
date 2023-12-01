@@ -1,56 +1,48 @@
-#include <iostream>
-#include <cmath>
-#include <sstream>
+def mod_pow(base, exp, mod):
+    res = 1
+    while exp > 0:
+        if exp % 2 == 1:
+            res = (res * base) % mod
+        base = (base * base) % mod
+        exp //= 2
+    return res
 
-unsigned long long mod_pow(unsigned long long base, unsigned long long exp, unsigned long long mod) {
-    unsigned long long res = 1;
-    while (exp > 0) {
-        if (exp % 2 == 1) {
-            res = (res * base) % mod;
-        }
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return res;
-}
+def encrypt_message(message, e, N):
+    encr_message = ""
+    for letter in message:
+        m = ord(letter)
+        c = mod_pow(m, e, N)
+        encr_message += str(c) + " "
+    return encr_message
 
-int main() {
-    setlocale(LC_ALL, "Russian");
-    unsigned long long x = 61;
-    unsigned long long y = 53;
-    unsigned long long N = x * y;
-    unsigned long long PHI = (x - 1) * (y - 1);
-    unsigned long long e = 17;
-    unsigned long long d = 1;
+def decrypt_message(encrypted_message, d, N):
+    decrypt_message = ""
+    tokens = encrypted_message.split()
+    for token in tokens:
+        c = int(token)
+        m = mod_pow(c, d, N)
+        decrypt_message += chr(m)
+    return decrypt_message
 
-    while ((d * e) % PHI != 1) {
-        d++;
-    }
+def main():
+    x = 61
+    y = 53
+    N = x * y
+    PHI = (x - 1) * (y - 1)
+    e = 17
+    d = 1
 
-    std::string mess;
-    std::cout << "Введите фразу:\n";
-    std::getline(std::cin, mess);
+    while (d * e) % PHI != 1:
+        d += 1
 
-    std::string encr_mess = "";
-    for (char letter : mess) {
-        unsigned long long m = static_cast<unsigned long long>(letter);
-        unsigned long long c = mod_pow(m, e, N);
-        encr_mess += std::to_string(c) + " ";
-    }
+    mess = input("Введите фразу:\n")
 
-    std::string decrypt_mess = "";
-    encr_mess = encr_mess.substr(0, encr_mess.size() - 1);
-    std::istringstream iss(encr_mess);
-    std::string token;
-    while (std::getline(iss, token, ' ')) {
-        unsigned long long c = std::stoull(token);
-        unsigned long long m = mod_pow(c, d, N);
-        decrypt_mess += static_cast<char>(m);
-    }
+    encr_mess = encrypt_message(mess, e, N)
+    decrypt_mess = decrypt_message(encr_mess, d, N)
 
-    std::cout << "Начальная фраза : " << mess << std::endl;
-    std::cout << "Зашифрованная фраза: " << encr_mess << std::endl;
-    std::cout << "Дешифрованная фраза: " << decrypt_mess << std::endl;
+    print("Начальная фраза:", mess)
+    print("Зашифрованная фраза:", encr_mess)
+    print("Дешифрованная фраза:", decrypt_mess)
 
-    return 0;
-}
+if __name__ == "__main__":
+    main()
