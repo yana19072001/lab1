@@ -1,4 +1,4 @@
-def encr_message(plain_text, key):
+def encr_mess(plain_text, key):
     key_arr = [ord(char) - ord('A') for char in key]
     encr_text = ''
   
@@ -9,7 +9,7 @@ def encr_message(plain_text, key):
     
     return encr_text
 
-def decrypt_message(cipher_text, key):
+def decrypt_mess(cipher_text, key):
     key_arr = [ord(char) - ord('A') for char in key]
     decrypt_text = ''
     alphavit = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -26,8 +26,8 @@ def decrypt_message(cipher_text, key):
 user_input = input("Введите фразу: ").upper()
 key_input = input("Введите кодовую фразу: ").upper()
 
-encr_message = encr_message(user_input, key_input)
-print("Зашифрованная фраза: ", encr_message)
+encr_mess = encr_mess(user_input, key_input)
+print("Зашифрованная фраза: ", encr_mess)
 
-decrypt_message = decrypt_message(encr_message, key_input)
-print("Расшифрованная фраза: ", decrypt_message)
+decrypt_mess = decrypt_mess(encr_mess, key_input)
+print("Расшифрованная фраза: ", decrypt_mess)
