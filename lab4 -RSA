@@ -1,4 +1,13 @@
-def encrypt_mes(mes, e, N):
+def mod_pow(base, exp, mod):
+    res = 1
+    while exp > 0:
+        if exp % 2 == 1:
+            res = (res * base) % mod
+        base = (base * base) % mod
+        exp //= 2
+    return res
+
+def encr2_mes(mes, e, N):
     encr_mes = ""
     for letter in mes:
         m = ord(letter)
@@ -6,9 +15,9 @@ def encrypt_mes(mes, e, N):
         encr_mes += str(c) + " "
     return encr_mes
 
-def decrypt_mes(encrypted_mes, d, N):
+def decrypt_mes(encrp3_mes, d, N):
     decrypt_mes = ""
-    tokens = encrypted_mes.split()
+    tokens = encrp3_mes.split()
     for token in tokens:
         c = int(token)
         m = mod_pow(c, d, N)
@@ -28,7 +37,7 @@ def main():
 
     mess = input("Введите фразу:\n")
 
-    encr_mess = encrypt_mes(mess, e, N)
+    encr_mess = encr2_mes(mess, e, N)
     decrypt_mess = decrypt_mes(encr_mess, d, N)
 
     print("Начальная фраза:", mess)
