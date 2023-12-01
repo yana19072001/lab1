@@ -7,7 +7,7 @@ def mod_pow(base, exp, mod):
         exp //= 2
     return res
 
-def encr_mess(mess, e, N):
+def encr1_mess(mess, e, N):
     encr_mess = ""
     for letter in mess:
         m = ord(letter)
@@ -37,7 +37,7 @@ def main():
 
     mess = input("Введите фразу:\n")
 
-    encr_mess = encr_mess(mess, e, N)
+    encr_mess = encr1_mess(mess, e, N)
     decrypt_mess = decrypt_mess(encr_mess, d, N)
 
     print("Начальная фраза:", mess)
