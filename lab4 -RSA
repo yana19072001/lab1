@@ -1,29 +1,19 @@
-
-def mod_pow(base, exp, mod):
-    res = 1
-    while exp > 0:
-        if exp % 2 == 1:
-            res = (res * base) % mod
-        base = (base * base) % mod
-        exp //= 2
-    return res
-
-def encrypt_message(message, e, N):
-    encr_message = ""
-    for letter in message:
+def encrypt_mes(mes, e, N):
+    encr_mes = ""
+    for letter in mes:
         m = ord(letter)
         c = mod_pow(m, e, N)
-        encr_message += str(c) + " "
-    return encr_message
+        encr_mes += str(c) + " "
+    return encr_mes
 
-def decrypt_message(encrypted_message, d, N):
-    decrypt_message = ""
-    tokens = encrypted_message.split()
+def decrypt_mes(encrypted_mes, d, N):
+    decrypt_mes = ""
+    tokens = encrypted_mes.split()
     for token in tokens:
         c = int(token)
         m = mod_pow(c, d, N)
-        decrypt_message += chr(m)
-    return decrypt_message
+        decrypt_mes += chr(m)
+    return decrypt_mes
 
 def main():
     x = 61
@@ -38,8 +28,8 @@ def main():
 
     mess = input("Введите фразу:\n")
 
-    encr_mess = encrypt_message(mess, e, N)
-    decrypt_mess = decrypt_message(encr_mess, d, N)
+    encr_mess = encrypt_mes(mess, e, N)
+    decrypt_mess = decrypt_mes(encr_mess, d, N)
 
     print("Начальная фраза:", mess)
     print("Зашифрованная фраза:", encr_mess)
