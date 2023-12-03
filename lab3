@@ -1,9 +1,9 @@
 def encrypt_block(block, key):
-    w = 32  # word size in bits
-    r = 12  # number of rounds
-    b = len(key)  # key size in bytes
+    L = 32  # word size in bits
+    R = 12  # number of rounds
+    BB = len(key)  # key size in bytes
 
-    mod_val = 2 ** w
+    mod_val = 2 ** L
     mask = mod_val - 1
 
     key_words = [int.from_bytes(key[i:i + 4], byteorder='little') for i in range(0, b, 4)]
@@ -19,11 +19,11 @@ def encrypt_block(block, key):
     return encrypted_block
 
 def decrypt_block(encrypted_block, key):
-    w = 32
-    r = 12
-    b = len(key)
+    L = 32
+    R = 12
+    BB = len(key)
 
-    mod_val = 2 ** w
+    mod_val = 2 ** L
     mask = mod_val - 1
 
     key_words = [int.from_bytes(key[i:i + 4], byteorder='little') for i in range(0, b, 4)]
