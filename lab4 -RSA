@@ -40,7 +40,7 @@ def main():
     encr_mess = encr2_mes(mess, e, N)
     decrypt_mess = decrypt_mes(encr_mess, d, N)
 
-    print("Начальная фраза:", mess)
+    print("Ваша фраза:", mess)
     print("Зашифрованная фраза:", encr_mess)
     print("Дешифрованная фраза:", decrypt_mess)
 
