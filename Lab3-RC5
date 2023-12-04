@@ -1,1 +1,7 @@
+def encrypt_block(block,key):
+  L= 32 (размер байт)
+  R=12 (kol-vo raundov)
+  b= len(key) (razmer key bait)
 
+  mod-val =2 **L
+  maska = mod-val - l
