@@ -1,7 +1,23 @@
 def encrypt_block(block,key):
   L= 32 (размер байт)
   R=12 (kol-vo raundov)
-  b= len(key) (razmer key bait)
+BB = len(key) (razmer key bait)
 
   mod-val =2 **L
   maska = mod-val - l
+
+ key_words = [int.from_bytes(key[i:i + 4], byteorder='little') for i in range(0, BB, 4)]
+    S = [(0xB7E15163 + i) & maska for i in range(2 * (R + 1))]
+A, B = int.from_bytes(block[:4], byteorder='little'), int.from_bytes(block[4:], byteorder='little')
+
+    for i in range(1, R + 1):
+        A = ((A ^ B) + S[2 * i]) & maska
+        B = ((B ^ A) + S[2 * i + 1]) & maska
+
+    encrypted_block = A.to_bytes(4, byteorder='little') + B.to_bytes(4, byteorder='little')
+    return encrypted_block
+
+def decrypt_block(encrypted_block, key):
+L=
+R=
+BB=
