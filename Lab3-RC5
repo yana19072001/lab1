@@ -3,8 +3,8 @@ def encrypt_block(block,key):
   R=12 (kol-vo raundov)
 BB = len(key) (razmer key bait)
 
-  mod-val =2 **L
-  maska = mod-val - l
+  mod =2 ** L
+  maska = mod - 1
 
  key_words = [int.from_bytes(key[i:i + 4], byteorder='little') for i in range(0, BB, 4)]
     S = [(0xB7E15163 + i) & maska for i in range(2 * (R + 1))]
@@ -18,6 +18,33 @@ A, B = int.from_bytes(block[:4], byteorder='little'), int.from_bytes(block[4:], 
     return encrypted_block
 
 def decrypt_block(encrypted_block, key):
-L=
-R=
-BB=
+L= 32
+R= 12
+BB= len(key)
+
+
+ mod = 2 ** L
+ maska = mod - 1
+
+
+key_words = [int.from_bytes(key[i:i + 4], byteorder='little') for i in range(0, BB, 4)]
+    S = [(0xB7E15163 + i) & maska for i in range(2 * (R + 1))]
+
+A, B = int.from_bytes(encrypted_block[:4], byteorder='little'), int.from_bytes(encrypted_block[4:], byteorder='little')
+
+    for i in range(R, 0, -1):
+        B = ((B - S[2 * i + 1]) ^ A) & maska
+        A = ((A - S[2 * i]) ^ B) & maska
+
+ decrypted_block = A.to_bytes(4, byteorder='little') + B.to_bytes(4, byteorder='little')
+   return decrypted_block
+
+text = input("Enter the text: ").encode('utf-8')
+key = input("Enter the key: ").encode('utf-8')
+
+encrypted = encrypt_block(text, key)
+decrypted = decrypt_block(encrypted, key)
+
+print("text:", text.decode('utf-8'))
+print("Encrypted:", encrypted)
+print("Decrypted:", decrypted.decode('utf-8'))
