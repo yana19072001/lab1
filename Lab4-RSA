@@ -1,4 +1,19 @@
-def encr_mes
+def mod_pow(base,exp,mod)
+  res = 1
+  while exp > 0 :
+    if exp % 2 ==1:
+        res = (res *base) % mod
+    base = (base* base) % mod
+    exp //= 2
+  return res
+
+def encr2_mes(mes,e, n) :
+    encr_mes = ""
+    for letter in mes:
+        m= ord (letter)
+        c= mod_pow(m,e,n)
+        encr_mes += str(c) + " "
+    return encr_mes
 
 def decrypt_mes
 
@@ -18,3 +33,4 @@ n=p*q
 PSI=(p-1)*(q-1)
 e=17
 d=1
+выводим маин по выолн скрипта
