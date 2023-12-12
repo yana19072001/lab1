@@ -1,36 +1,47 @@
-def mod_pow(base,exp,mod)
-  res = 1
-  while exp > 0 :
-    if exp % 2 ==1:
-        res = (res *base) % mod
-    base = (base* base) % mod
-    exp //= 2
-  return res
+def mod_pow(base, exp, mod):
+    res = 1
+    while exp > 0:
+        if exp % 2 == 1:
+            res = (res * base) % mod
+        base = (base * base) % mod
+        exp //= 2
+    return res
 
-def encr2_mes(mes,e, n) :
+def encr2_mes(mes, e, n):
     encr_mes = ""
     for letter in mes:
-        m= ord (letter)
-        c= mod_pow(m,e,n)
+        m = ord(letter)
+        c = mod_pow(m, e, n)
         encr_mes += str(c) + " "
     return encr_mes
 
-def decrypt_mes
 
-
-
-
-
-
-
-
-
+def decrypt_mes(encrp3_mes, d, n):
+    decrypt_mes = ""
+    tokens = encrp3_mes.split()
+    for token in tokens:
+        c = int(token)
+        m = mod_pow(c, d, n)
+        decrypt_mes += chr(m)
+    return decrypt_mes
 
 def main():
-p= 61
-q= 53
-n=p*q 
-PSI=(p-1)*(q-1)
-e=17
-d=1
-выводим маин по выолн скрипта
+    p = 61
+    q = 53
+    n = p * q
+    PSI = (p - 1) * (q - 1)
+    e = 17
+    d = 1
+
+    while (d * e) % PSI != 1:
+        d += 1
+
+    mess = input("Введите фразу:\n")
+
+    encr_mess = encr2_mes(mess, e, n)
+    decrypt_mess = decrypt_mes(encr_mess, d, n)
+
+    print("Ваша фраза:", mess)
+    print("Зашифрованная фраза:", encr_mess)
+    print("Дешифрованная фраза:", decrypt_mess)
+main()
